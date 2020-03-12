@@ -65,7 +65,7 @@ function q3(array, k){
   var results = 0;
   while(i < j){
     if(array[i]*array[j] <= k){
-      results += (r - i)
+      results += (j - i)
       i++;
     }else{
       j--;
