@@ -78,19 +78,19 @@ log = '';
 document.getElementById('add').addEventListener("click", () => {
   var value = document.getElementById('value').value
   myqueue.enqueue(value);
-  log += '<p style = "color: #0cc322">enqueue - '+value+'</p><br />';
+  log += '<p style = "color: #0cc322">enqueue - '+value+'</p><br /> ';
   document.getElementById('value').value = null;
   document.getElementById('logs').innerHTML = log;
 })
 
 document.getElementById('minus').addEventListener("click", () => {
-  log += '<p style = "color: #efa011">dequeue - ' +myqueue.dequeue()+'</p><br />';
+  log += '<p style = "color: #efa011">dequeue - ' +myqueue.dequeue()+'</p><br /> ';
   document.getElementById('logs').innerHTML = log;
 
 
 })
 document.getElementById('AVG').addEventListener("click", () => {
-  log += '<p style = "color: #7f43e0">average - ' + myqueue.getAverage()+'</p><br />';
+  log += '<p style = "color: #7f43e0">average - ' + Math.round(myqueue.getAverage()*10000)/10000+'</p><br /> ';
   document.getElementById('logs').innerHTML = log;
 })
 document.getElementById('run').addEventListener("click", () => {
@@ -98,11 +98,11 @@ document.getElementById('run').addEventListener("click", () => {
   var k = parseInt(document.getElementById('k').value)
   value = JSON.parse('['+value+']');
   if(!value){
-    log += '<p style = "color: #ff5722">No Array, or incorrect format</p><br />';
+    log += '<p style = "color: #ff5722">No Array, or incorrect format</p><br /> ';
   }else if(!k){
-    log += '<p style = "color: #ff5722">No Array, or incorrect format</p><br />';
+    log += '<p style = "color: #ff5722">No Array, or incorrect format</p><br /> ';
   }else{
-    log += '<p style = "color: #ff5722">Q3 Result - ' + question32(value, k)+'</p><br />';
+    log += '<p style = "color: #ff5722">Q3 Result - ' + question32(value, k)+'</p><br /> ';
   }
   document.getElementById('logs').innerHTML = log;
 })
