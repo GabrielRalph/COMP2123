@@ -59,16 +59,16 @@ function question3(array, k){
   console.log(o);
   return total
 }
-function question32(array, k){
-  var l = 0;
-  var r = array.length -1;
+function q3(array, k){
+  var i = 0;
+  var j = array.length -1;
   var results = 0;
-  while(l < r){
-    if(array[l]*array[r] <= k){
-      results += (r - l)
-      l++;
+  while(i < j){
+    if(array[i]*array[j] <= k){
+      results += (r - i)
+      i++;
     }else{
-      r--;
+      j--;
     }
   }
   return results
@@ -102,7 +102,7 @@ document.getElementById('run').addEventListener("click", () => {
   }else if(!k){
     log += '<p style = "color: #ff5722">No Array, or incorrect format</p><br /> ';
   }else{
-    log += '<p style = "color: #ff5722">Q3 Result - ' + question32(value, k)+'</p><br /> ';
+    log += '<p style = "color: #ff5722">Q3 Result - ' + q3(value, k)+'</p><br /> ';
   }
   document.getElementById('logs').innerHTML = log;
 })
