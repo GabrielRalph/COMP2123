@@ -1,5 +1,5 @@
 body{
-  margin: 20px;
+  margin: 20px 20px 100px 20px;
 }
 
 #node path:nth-of-type(1){
@@ -49,5 +49,12 @@ input:focus{
 }
 .info{
   padding: 20px;
+  font-family: 'Courier New';
   float: left;
+}
+.function{
+  font-family: 'Courier New';
+  width: 100%;
+  float: left;
+  margin-bottom: 100px;
 }

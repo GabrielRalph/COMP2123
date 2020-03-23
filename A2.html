@@ -24,6 +24,15 @@
         children: [node1, node2, ...] or [] if leaf<br />
       }
     </div>
+    <pre class = "function">def treeToJson(node):
+      if node.is_external():
+        return '{{"a": {0}, "b": {1}, "children": []}}'.format(node.key, node.subtree_value) <br />
+      else:
+        print_string = '{{"a": {0}, "b": {1}, "children": ['.format(node.key, node.subtree_value) <br />
+        for child_node in node.children:
+            print_string += treeToJson(child_node) + ','
+        print_string = print_string[:-1]
+        return print_string + "]}"</pre>
   </body>
   <script type="text/javascript">
     runMyScript = function(python_file_name, callback){
