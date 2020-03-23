@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script type="text/javascript" src="./NodeGraphs.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
+    <link rel="stylesheet" type="text/css" href="./nodeStyles.css">
+    <title>Galetora</title>
+  </head>
+  <body>
+    <div id = "app">
+    </div>
+    <input id = "jsonTreeText" type="text"/>
+    <div id = "button">
+      Render Object
+    </div>
+    <div class = "info">
+      Insert tree as json object with a, b and children ar keys <br />
+      node = {<br />
+        a: interger_value,<br />
+        b: interger_value,<br />
+        children: [node1, node2, ...] or [] if leaf<br />
+      }
+    </div>
+  </body>
+  <script type="text/javascript">
+    runMyScript = function(python_file_name, callback){
+      fetch('http://localhost:3000/run/'+ python_file_name).then((response, err) => {
+        if (err) throw err
+        return response.json()
+      }).then((responseJson) => {
+        if(responseJson.error){
+          console.error('SQL ERROR: ' + responseJson.error)
+        }else{
+          callback(responseJson)
+        }
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
+
+    runMyScript('test.py', (jsontree)=>{
+      var nodeGraph = new NodeGraphs(jsontree, 'app');
+    })
+
+    document.getElementById('button').addEventListener('click', () => {
+      var treejson = document.getElementById('jsonTreeText').value
+      treejson = JSON.parse(treejson);
+      var nodeGraph = new NodeGraphs(treejson, 'app');
+    })
+  </script>
+</html>
