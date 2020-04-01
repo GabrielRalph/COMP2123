@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+  <!-- <script type="text/javascript" src="./main.js"></script>
+
+  <script type="text/javascript" src="./basics.js"></script>
+
+
+  <link rel="stylesheet" type="text/css" href="./style.css"> -->
+
+  <script>
+    var data = [];
+    fetch('https://interactive.guim.co.uk/yacht-charter-data/australian-covid-cases-2020.json').then((response, err) => {
+      if (err) throw err
+      return response.json()
+    }).then((responseJson) => {
+      data = responseJson.sheets.data.pop();
+      console.log(data);
+      data['sum'] = 0;
+      for(var place in data){
+        if (place != 'index'&&place != 'sum'){
+          console.log(data[place]);
+           data.sum += data[place];
+         }
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
+
+    seg = function(start, end, color){
+      var circum = Math.PI*40*2;
+      return '<circle r = "40%" cx = "50%" cy = "50%" style = "transform-origin: center; transform: rotate('+start*360+'deg)" fill = "transparent" stroke = "'+color+'" stroke-width = "20%" stroke-dasharray = "'+(end-start)*circum+'% '+(1+start-end)*circum+'%"/>'
+    }
+    window.addEventListener('load', ()=>{
+      var lc = 0;
+      var c = data.NSW/data.sum;
+      console.log(data.sum);
+      document.getElementById('pie').innerHTML += seg(lc, lc + c, 'blue');
+      lc += c;
+      c = data.VIC/data.sum;
+      document.getElementById('pie').innerHTML += seg(lc, lc + c, 'red');
+      lc += c;
+      c = data.QLD/data.sum;
+      document.getElementById('pie').innerHTML += seg(lc, lc + c, 'green');
+      lc += c;
+      c = data.SA/data.sum;
+      document.getElementById('pie').innerHTML += seg(lc, lc + c, 'yellow');
+      lc += c;
+      c = data.WA/data.sum;
+      document.getElementById('pie').innerHTML += seg(lc, lc + c, 'magenta');
+      lc += c;
+      c = data.TAS/data.sum;
+      document.getElementById('pie').innerHTML += seg(lc, lc + c, 'tomato');
+      lc += c;
+      c = data.ACT/data.sum;
+      document.getElementById('pie').innerHTML += seg(lc, lc + c, 'cyan');
+      lc += c;
+      c = data.NT/data.sum;
+      document.getElementById('pie').innerHTML += seg(lc, lc + c, 'grey');
+    })
+
+
+  </script>
+  <title>COVID</title>
+</head>
+<body>
+  <svg viewBox = "0 0 100 100" id = "pie"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  </svg>
+</body>
+<style type="text/css">
+  svg{
+    width: 500px;
+  }
+</style>
+</html>

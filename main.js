@@ -1,4 +1,4 @@
-var list = ['A1', 'A2'];
+var list = ['A1', 'A2', 'ACOVID'];
 var html = ''
 
 for(var i in list){
