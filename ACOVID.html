@@ -29,18 +29,9 @@
            data.sum += data[place];
          }
       }
-    }).catch((err) => {
-      console.log(err);
-    });
-
-    seg = function(start, end, color){
-      var circum = Math.PI*40*2;
-      return '<circle r = "40%" cx = "50%" cy = "50%" style = "transform-origin: center; transform: rotate('+start*360+'deg)" fill = "transparent" stroke = "'+color+'" stroke-width = "20%" stroke-dasharray = "'+(end-start)*circum+'% '+(1+start-end)*circum+'%"/>'
-    }
-    window.addEventListener('load', ()=>{
       var lc = 0;
       var c = data.NSW/data.sum;
-      console.log(data.sum);
+      alert('we at ' + data.sum);
       document.getElementById('pie').innerHTML += seg(lc, lc + c, 'blue');
       lc += c;
       c = data.VIC/data.sum;
@@ -63,6 +54,17 @@
       lc += c;
       c = data.ACT/data.sum;
       document.getElementById('pie').innerHTML += seg(lc, lc + c, 'cyan');
+
+    }).catch((err) => {
+      console.log(err);
+    });
+
+    seg = function(start, end, color){
+      var circum = Math.PI*40*2;
+      return '<circle r = "40%" cx = "50%" cy = "50%" style = "transform-origin: center; transform: rotate('+start*360+'deg)" fill = "transparent" stroke = "'+color+'" stroke-width = "20%" stroke-dasharray = "'+(end-start)*circum+'% '+(1+start-end)*circum+'%"/>'
+    }
+    window.addEventListener('load', ()=>{
+
     })
 
 
