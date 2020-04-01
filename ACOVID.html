@@ -58,11 +58,11 @@
       c = data.TAS/data.sum;
       document.getElementById('pie').innerHTML += seg(lc, lc + c, 'tomato');
       lc += c;
-      c = data.ACT/data.sum;
-      document.getElementById('pie').innerHTML += seg(lc, lc + c, 'cyan');
-      lc += c;
       c = data.NT/data.sum;
       document.getElementById('pie').innerHTML += seg(lc, lc + c, 'grey');
+      lc += c;
+      c = data.ACT/data.sum;
+      document.getElementById('pie').innerHTML += seg(lc, lc + c, 'cyan');
     })
 
 
