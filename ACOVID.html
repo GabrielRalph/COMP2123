@@ -16,6 +16,17 @@
 
   <script>
     var data = [];
+
+    var colors = {
+      NSW: '#17d08c',
+      VIC: '#29ab19',
+      QLD: '#eaa811',
+      SA:  '#ff5e00',
+      WA: '#ff0023',
+      TAS: '#bf2aad',
+      ACT: '#864bc7',
+      NT: '#0ab8fb'
+    }
     fetch('https://interactive.guim.co.uk/yacht-charter-data/australian-covid-cases-2020.json').then((response, err) => {
       if (err) throw err
       return response.json()
@@ -25,35 +36,22 @@
       data['sum'] = 0;
       for(var place in data){
         if (place != 'index'&&place != 'sum'){
+          document.getElementById(place).innerHTML += ' : ' + data[place]
+          document.getElementById(place).style.setProperty('color', colors[place])
           console.log(data[place]);
            data.sum += data[place];
          }
       }
       var lc = 0;
-      var c = data.NSW/data.sum;
+      var c = 0;
+      for(var place in data){
+        if (place != 'index'&&place != 'sum'){
+          lc += c;
+          c = data[place]/data.sum;
+          document.getElementById('pie').innerHTML += seg(lc, lc + c, colors[place]);
+         }
+      }
       alert('we at ' + data.sum);
-      document.getElementById('pie').innerHTML += seg(lc, lc + c, 'blue');
-      lc += c;
-      c = data.VIC/data.sum;
-      document.getElementById('pie').innerHTML += seg(lc, lc + c, 'red');
-      lc += c;
-      c = data.QLD/data.sum;
-      document.getElementById('pie').innerHTML += seg(lc, lc + c, 'green');
-      lc += c;
-      c = data.SA/data.sum;
-      document.getElementById('pie').innerHTML += seg(lc, lc + c, 'yellow');
-      lc += c;
-      c = data.WA/data.sum;
-      document.getElementById('pie').innerHTML += seg(lc, lc + c, 'magenta');
-      lc += c;
-      c = data.TAS/data.sum;
-      document.getElementById('pie').innerHTML += seg(lc, lc + c, 'grey');
-      lc += c;
-      c = data.ACT/data.sum;
-      document.getElementById('pie').innerHTML += seg(lc, lc + c, 'cyan');
-      lc += c;
-      c = data.NT/data.sum;
-      document.getElementById('pie').innerHTML += seg(lc, lc + c, 'tomato');
 
     }).catch((err) => {
       console.log(err);
@@ -74,10 +72,27 @@
 <body>
   <svg viewBox = "0 0 100 100" id = "pie"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   </svg>
+  <div>
+    <h1 style = "color:blue" id = 'NSW'>NSW</h1>
+    <h1 style = "color:red" id = 'VIC'>VIC</h1>
+    <h1 style = "color:green" id = 'QLD'>QLD</h1>
+    <h1 style = "color:yellow" id = 'SA'>SA</h1>
+    <h1 style = "color:magenta" id = 'WA'>WA</h1>
+    <h1 style = "color:grey" id = 'TAS'>TAS</h1>
+    <h1 style = "color:cyan" id = 'ACT'>ACT</h1>
+    <h1 style = "color:tomato" id = 'NT'>NT</h1>
+  </div>
 </body>
 <style type="text/css">
   svg{
     width: 500px;
+    max-width: 90vw;
+  }
+  h1{
+    font-family: 'Comic Sans MS'
+  }
+  body{
+    padding: 5vw;
   }
 </style>
 </html>
