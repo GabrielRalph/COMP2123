@@ -21,7 +21,7 @@
       return response.json()
     }).then((responseJson) => {
       data = responseJson.sheets.data.pop();
-      console.log(data);
+      // console.log(data);
       data['sum'] = 0;
       for(var place in data){
         if (place != 'index'&&place != 'sum'){
@@ -47,13 +47,13 @@
       document.getElementById('pie').innerHTML += seg(lc, lc + c, 'magenta');
       lc += c;
       c = data.TAS/data.sum;
-      document.getElementById('pie').innerHTML += seg(lc, lc + c, 'tomato');
-      lc += c;
-      c = data.NT/data.sum;
       document.getElementById('pie').innerHTML += seg(lc, lc + c, 'grey');
       lc += c;
       c = data.ACT/data.sum;
       document.getElementById('pie').innerHTML += seg(lc, lc + c, 'cyan');
+      lc += c;
+      c = data.NT/data.sum;
+      document.getElementById('pie').innerHTML += seg(lc, lc + c, 'tomato');
 
     }).catch((err) => {
       console.log(err);
