@@ -36,8 +36,8 @@
       data['sum'] = 0;
       for(var place in data){
         if (place != 'index'&&place != 'sum'){
-          document.getElementById(place).innerHTML += ' : ' + data[place]
-          document.getElementById(place).style.setProperty('color', colors[place])
+          document.getElementById(place).innerHTML = '<td><h1>'+place+'</h1></td><td><h1>'+data[place]+'</h1></td>'
+          document.getElementById(place).style.setProperty('background', colors[place])
           console.log(data[place]);
            data.sum += data[place];
          }
@@ -67,32 +67,49 @@
 
 
   </script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
+
   <title>COVID</title>
 </head>
 <body>
   <svg viewBox = "0 0 100 100" id = "pie"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   </svg>
-  <div>
-    <h1 style = "color:blue" id = 'NSW'>NSW</h1>
-    <h1 style = "color:red" id = 'VIC'>VIC</h1>
-    <h1 style = "color:green" id = 'QLD'>QLD</h1>
-    <h1 style = "color:yellow" id = 'SA'>SA</h1>
-    <h1 style = "color:magenta" id = 'WA'>WA</h1>
-    <h1 style = "color:grey" id = 'TAS'>TAS</h1>
-    <h1 style = "color:cyan" id = 'ACT'>ACT</h1>
-    <h1 style = "color:tomato" id = 'NT'>NT</h1>
-  </div>
+  <table>
+    <tr id = 'NSW'></tr>
+    <tr id = 'VIC'></tr>
+    <tr id = 'QLD'></tr>
+    <tr id = 'SA'></tr>
+    <tr id = 'WA'></tr>
+    <tr id = 'TAS'></tr>
+    <tr id = 'ACT'></tr>
+    <tr id = 'NT'></tr>
+  </table>
 </body>
 <style type="text/css">
   svg{
     width: 500px;
-    max-width: 90vw;
+    max-width: calc(100vw - 210px - 3*20px);
   }
   h1{
-    font-family: 'Comic Sans MS'
+    font-family: 'Roboto';
+    color: white;
+    font-size: 23px;
   }
   body{
-    padding: 5vw;
+    padding: 20px;
+  }
+  table{
+    /* border-collapse: collapse; */
+    float: left;
+    padding-right: 20px;
+  }
+  tr > td:last-child{
+    border-radius: 0 50px 50px 0;
+    padding: 0 20px;
+  }
+  tr > td:first-child{
+    border-radius: 50px 0 0 50px;
+    padding: 0 20px;
   }
 </style>
 </html>
