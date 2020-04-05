@@ -57,8 +57,8 @@ window.addEventListener('load', ()=> {
   var onswitch = document.getElementById('switch');
   var audio = document.getElementById('audio-input');
   onswitch.style.setProperty('--running', '0')
+  connectAudio(audio)
   onswitch.addEventListener('click', ()=>{
-    alert(onswitch.style.getPropertyValue('--running') === "0")
     if(onswitch.style.getPropertyValue('--running') === "0"){
       audio.play();
       onswitch.style.setProperty('--running', '1');
@@ -68,3 +68,14 @@ window.addEventListener('load', ()=> {
   }
   })
 })
+
+connectAudio = function(audio){
+  window.AudioContext = window.AudioContext||window.webkitAudioContext;
+  ctrlpnl = new AudioContext();
+  var audioIn = ctrlpnl.createMediaElementSource(audio);
+  var biquadFilter = ctrlpnl.createBiquadFilter();
+  biquadFilter.type = "lowpass";
+  biquadFilter.frequency = 80;
+  audioIn.connect(biquadFilter);
+  biquadFilter.connect(ctrlpnl.destination);
+}
