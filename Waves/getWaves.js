@@ -33,6 +33,20 @@ function init() {
 
 function loadWaves(wavesInp) {
   waves = ctrlpnl.createMediaElementSource(wavesInp);
+  var biquadFilter = ctrlpnl.createBiquadFilter();
+  biquadFilter.frequency = 80;
+  var analyser = ctrlpnl.createAnalyser();
+  waves.connect(biquadFilter);
+  biquadFilter.connect(analyser);
+  analyser.connect(waves);
+
+  // ...
+
+  analyser.fftSize = 2048;
+  var bufferLength = analyser.frequencyBinCount;
+  var dataArray = new Uint8Array(bufferLength);
+  analyser.getByteTimeDomainData(dataArray);
+
   waves.connect(ctrlpnl.destination)
 }
 
