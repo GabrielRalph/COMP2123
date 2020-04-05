@@ -55,24 +55,24 @@
 
 window.addEventListener('load', ()=> {
   var onswitch = document.getElementById('switch');
-  var audio = document.getElementById('audio-input');
+  var audioInput = document.getElementById('audio-input');
   onswitch.style.setProperty('--running', '0')
-  connectAudio(audio)
+  connectAudio(audioInput)
   onswitch.addEventListener('click', ()=>{
     if(onswitch.style.getPropertyValue('--running') === "0"){
-      audio.play();
+      audioInput.play();
       onswitch.style.setProperty('--running', '1');
     }else{
-      audio.pause();
+      audioInput.pause();
     onswitch.style.setProperty('--running', '0');
   }
   })
 })
 
-connectAudio = function(audio){
+connectAudio = function(audio_in){
   window.AudioContext = window.AudioContext||window.webkitAudioContext;
   ctrlpnl = new AudioContext();
-  var audioIn = ctrlpnl.createMediaElementSource(audio);
+  var audioIn = ctrlpnl.createMediaElementSource(audio_in);
   var biquadFilter = ctrlpnl.createBiquadFilter();
   biquadFilter.type = "lowpass";
   biquadFilter.frequency = 80;
