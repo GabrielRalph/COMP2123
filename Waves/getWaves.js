@@ -38,6 +38,7 @@ function loadWaves(url) {
 
   // Decode asynchronously
   request.onload = function() {
+    alert(request.response);
     ctrlpnl.decodeAudioData(request.response).then(function(buffer) {
       waves.buffer = buffer;
       waves.connect(ctrlpnl.destination)
