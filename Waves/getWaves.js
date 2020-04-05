@@ -16,10 +16,10 @@ function init() {
       console.log(onswitch.style.getPropertyValue('--running'));
       if(onswitch.style.getPropertyValue('--running') === "0"){
         loadWaves('http://192.168.0.233:8000/;?type=http&amp;nocache=1');
-        waves.start(0);
+        waves.start(ctrlpnl.currentTime);
         onswitch.style.setProperty('--running', '1');
       }else{
-        waves.stop(0);
+        waves.stop(ctrlpnl.currentTime);
         onswitch.style.setProperty('--running', '0');
       }
     }
@@ -38,7 +38,6 @@ function loadWaves(url) {
 
   // Decode asynchronously
   request.onload = function() {
-    alert(request.response);
     ctrlpnl.decodeAudioData(request.response).then(function(buffer) {
       waves.buffer = buffer;
       waves.connect(ctrlpnl.destination)
