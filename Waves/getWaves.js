@@ -12,7 +12,7 @@ function init() {
     try {
       // Fix up for prefixing
       window.AudioContext = window.AudioContext||window.webkitAudioContext;
-      ctrlpnl = new AudioContext();
+      ctrlpnl = new AudioContext(window.AudioContext);
       console.log(onswitch.style.getPropertyValue('--running'));
       if(onswitch.style.getPropertyValue('--running') === "0"){
         loadWaves('http://192.168.0.233:8000/;?type=http&amp;nocache=1');
@@ -24,7 +24,7 @@ function init() {
       }
     }
     catch(e) {
-      alert('Web Audio API is not supported in this browser');
+      alert('Web Audio API is not supported in this browser' +e);
     }
 
   });
