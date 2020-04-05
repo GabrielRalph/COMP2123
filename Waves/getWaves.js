@@ -70,11 +70,11 @@ var HEIGHT = window.innerHeight;
 // Get new mouse pointer coordinates when mouse is moved
 // then set new gain value
 
-document.ontouchmoved = updatePage;
+document.ontouchmove = updatePage;
 
 function updatePage(e) {
     CurY = (window.Event) ? e.pageY : event.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
-
+    alert(CurY/HEIGHT)
     gainNode.gain.value = CurY/HEIGHT;
 }
 
