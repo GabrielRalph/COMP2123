@@ -7,19 +7,20 @@ var waves;
 window.addEventListener('load', init, false);
 function init() {
   var onswitch = document.querySelector('#switch');
+  var wavesIn = document.querySelector('#waves-in');
   onswitch.style.setProperty('--running', '0');
   onswitch.addEventListener('click', function() {
     try {
       // Fix up for prefixing
       window.AudioContext = window.AudioContext||window.webkitAudioContext;
-      ctrlpnl = new AudioContext(window.AudioContext);
+      ctrlpnl = new AudioContext();
       console.log(onswitch.style.getPropertyValue('--running'));
       if(onswitch.style.getPropertyValue('--running') === "0"){
-        loadWaves();
-        waves.start(ctrlpnl.currentTime);
+        loadWaves(wavesIn);
+        // waves.start(ctrlpnl.currentTime);
         onswitch.style.setProperty('--running', '1');
       }else{
-        waves.stop(ctrlpnl.currentTime);
+        // waves.stop(ctrlpnl.currentTime);
         onswitch.style.setProperty('--running', '0');
       }
     }
@@ -30,9 +31,8 @@ function init() {
   });
 }
 
-function loadWaves(url) {
-  var myAudio = document.querySelector('my-waves');
-  waves = ctrlpnl.createMediaElementSource(myAudio);
+function loadWaves(wavesInp) {
+  waves = ctrlpnl.createMediaElementSource(wavesInp);
   waves.connect(ctrlpnl.destination)
 }
 
