@@ -35,6 +35,7 @@ function loadWaves(wavesInp) {
   waves = ctrlpnl.createMediaElementSource(wavesInp);
   var biquadFilter = ctrlpnl.createBiquadFilter();
   biquadFilter.frequency = 80;
+  biquadFilter.type = "lowpass";
   var analyser = ctrlpnl.createAnalyser();
   waves.connect(biquadFilter);
   biquadFilter.connect(analyser);
