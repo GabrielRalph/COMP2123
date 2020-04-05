@@ -58,7 +58,7 @@ window.addEventListener('load', ()=> {
   var audio = document.getElementById('audio-input');
   onswitch.style.setProperty('--running', '0')
   onswitch.addEventListener('touchstart', ()=>{
-    alert('this')
+    alert(onswitch.style.getPropertyValue('--running') === "0")
     if(onswitch.style.getPropertyValue('--running') === "0"){
       audio.play();
       onswitch.style.setProperty('--running', '1');
