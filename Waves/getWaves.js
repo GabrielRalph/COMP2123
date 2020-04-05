@@ -54,9 +54,10 @@
 // // wire up buttons to stop and play audio
 
 window.addEventListener('load', ()=> {
-  var onswitch = document.querySelector('#switch');
+  var onswitch = document.getElementById('switch');
   var audio = document.getElementById('audio-input');
-  onswitch.addEventListener('click', ()=>{
+  onswitch.style.setProperty('--running', '0')
+  onswitch.addEventListener('touchstart', ()=>{
     alert('this')
     if(onswitch.style.getPropertyValue('--running') === "0"){
       audio.play();
