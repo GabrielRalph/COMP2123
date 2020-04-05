@@ -40,9 +40,11 @@ function loadWaves(url) {
     ctrlpnl.decodeAudioData(request.response).then(function(buffer) {
       waves.buffer = buffer;
       waves.connect(ctrlpnl.destination)
-
-    }).catch((err) => {
+    }, (err) => {
       alert('loading error: '+err);
+    }).catch((err) => {
+      alert('catchloading error: '+err);
+
     })
   }
   request.send();
