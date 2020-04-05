@@ -7,7 +7,7 @@ var myScript = document.querySelector('script');
 window.addEventListener('load', init, false);
 function init() {
   var onswitch = document.querySelector('#switch');
-  var wavesIn = document.querySelector('#waves-in');
+  var wavesIn = document.getElementById('waves-in');
   onswitch.style.setProperty('--running', '0');
   onswitch.addEventListener('click', function() {
     try {
