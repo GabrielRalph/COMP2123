@@ -35,7 +35,7 @@ function loadWaves(url) {
   var request = new XMLHttpRequest();
   request.open('GET', url, true);
   request.responseType = 'arraybuffer';
-
+  alert('getting audio from '+url)
   // Decode asynchronously
   request.onload = function() {
     ctrlpnl.decodeAudioData(request.response).then(function(buffer) {
