@@ -38,7 +38,7 @@ function loadWaves(wavesInp) {
   var analyser = ctrlpnl.createAnalyser();
   waves.connect(biquadFilter);
   biquadFilter.connect(analyser);
-  analyser.connect(waves);
+
 
   // ...
 
@@ -47,7 +47,7 @@ function loadWaves(wavesInp) {
   var dataArray = new Uint8Array(bufferLength);
   analyser.getByteTimeDomainData(dataArray);
 
-  waves.connect(ctrlpnl.destination)
+  analyser.connect(ctrlpnl.destination)
 }
 
 // wire up buttons to stop and play audio
