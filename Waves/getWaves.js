@@ -15,7 +15,7 @@ function init() {
       ctrlpnl = new AudioContext(window.AudioContext);
       console.log(onswitch.style.getPropertyValue('--running'));
       if(onswitch.style.getPropertyValue('--running') === "0"){
-        loadWaves('http://192.168.0.233:8000/;?type=http&amp;nocache=1');
+        loadWaves();
         waves.start(ctrlpnl.currentTime);
         onswitch.style.setProperty('--running', '1');
       }else{
@@ -31,25 +31,9 @@ function init() {
 }
 
 function loadWaves(url) {
-  waves = ctrlpnl.createBufferSource();
-  var request = new XMLHttpRequest();
-  request.open('GET', url, true);
-  request.responseType = 'arraybuffer';
-  // Decode asynchronously
-  alert('test: '+url)
-  request.onload = function() {
-    alert('test onload: ')
-
-    ctrlpnl.decodeAudioData(request.response).then(function(buffer) {
-      waves.buffer = buffer;
-      waves.connect(ctrlpnl.destination)
-
-    }, (err) => {
-
-      alert('getting audio from '+url)
-    });
-  }
-  request.send();
+  myAudio = document.querySelector('my-waves');
+  waves = ctrlpnl.createMediaElementSource(myAudio);
+  waves.connect(ctrlpnl.destination)
 }
 
 // wire up buttons to stop and play audio
