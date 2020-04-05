@@ -35,14 +35,15 @@ function loadWaves(url) {
   var request = new XMLHttpRequest();
   request.open('GET', url, true);
   request.responseType = 'arraybuffer';
-  alert('getting audio from '+url)
   // Decode asynchronously
   request.onload = function() {
     ctrlpnl.decodeAudioData(request.response).then(function(buffer) {
       waves.buffer = buffer;
       waves.connect(ctrlpnl.destination)
 
-    }, onError);
+    }).catch((err) => {
+      alert('loading error: '+err);
+    })
   }
   request.send();
 }
