@@ -57,7 +57,12 @@ window.addEventListener('load', ()=> {
   var onswitch = document.querySelector('#switch');
   var audio = document.getElementById('audio-input');
   window.addEventListener('click', ()=>{
-    audio.play();
-    onswitch.style.setProperty('--running', '1');
+    if(onswitch.style.getPropertyValue('--running') === "0"){
+      audio.play();
+      onswitch.style.setProperty('--running', '1');
+    }else{
+      audio.stop();
+    onswitch.style.setProperty('--running', '0');
+  }
   })
 })
