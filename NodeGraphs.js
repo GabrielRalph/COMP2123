@@ -33,13 +33,14 @@ class NodeGraphs{
   }
 
   // Creates the svg path for a single node and a connection to its parent
-  drawSVGnode(x, y, a, b, parent){
-    var path = '<svg width = "'+this.size+'" height = "'+this.size+'" x = "'+x*(this.size + this.margin.x)+'" y = "'+y*(this.size + this.margin.y)+'" id = "node"><path d = "m 0 '+this.size/2+' l '+this.size+' 0 a '+this.size/2+' '+this.size/2+' 0 0 1 -'+this.size+' 0"/><path d = "m '+this.size+' '+this.size/2+' l -'+this.size+' 0 a '+this.size/2+' '+this.size/2+' 0 0 1 '+this.size+' 0"/><text x = "'+this.size/2+'" y = "'+this.size*0.3+'" dominant-baseline="middle" text-anchor="middle">'+a+'</text><text x = "'+this.size/2+'" y = "'+this.size*0.75+'" dominant-baseline="middle" text-anchor="middle">'+b+'</text></svg>\n'
+  drawSVGnode(node, parent){
+    var path = '<svg onclick = "testyFunction({x:'+node.x+', y:'+node.y+', a:'+node.a+', b:'+node.b+'})" width = "'+this.size+'" height = "'+this.size+'" x = "'+node.x*(this.size + this.margin.x)+'" y = "'+node.y*(this.size + this.margin.y)+'" id = "node"><path d = "m 0 '+this.size/2+' l '+this.size+' 0 a '+this.size/2+' '+this.size/2+' 0 0 1 -'+this.size+' 0"/><path d = "m '+this.size+' '+this.size/2+' l -'+this.size+' 0 a '+this.size/2+' '+this.size/2+' 0 0 1 '+this.size+' 0"/><text x = "'+this.size/2+'" y = "'+this.size*0.3+'" dominant-baseline="middle" text-anchor="middle">'+node.a+'</text><text x = "'+this.size/2+'" y = "'+this.size*0.75+'" dominant-baseline="middle" text-anchor="middle">'+node.b+'</text></svg>\n'
     if(parent){
-      path += '<path d = "M '+(parent.x*(this.size + this.margin.x) + this.size/2)+' '+(parent.y*(this.size + this.margin.y) + this.size)+' C '+(parent.x*(this.size + this.margin.x) + this.size/2)+' '+((parent.y*(this.size + this.margin.y) + y*(this.size + this.margin.y) + this.size)/2)+', '+(x*(this.size + this.margin.x)+this.size/2)+' '+((parent.y*(this.size + this.margin.y) + y*(this.size + this.margin.y) + this.size)/2)+', '+(x*(this.size + this.margin.x)+this.size/2)+' '+y*(this.size + this.margin.y)+'" stroke = "red" fill = "transparent" stroke-width = "'+this.size/15+'px"/>'
+      path += '<path d = "M '+(parent.x*(this.size + this.margin.x) + this.size/2)+' '+(parent.y*(this.size + this.margin.y) + this.size)+' C '+(parent.x*(this.size + this.margin.x) + this.size/2)+' '+((parent.y*(this.size + this.margin.y) + node.y*(this.size + this.margin.y) + this.size)/2)+', '+(node.x*(this.size + this.margin.x)+this.size/2)+' '+((parent.y*(this.size + this.margin.y) + node.y*(this.size + this.margin.y) + this.size)/2)+', '+(node.x*(this.size + this.margin.x)+this.size/2)+' '+node.y*(this.size + this.margin.y)+'" stroke = "red" fill = "transparent" stroke-width = "'+this.size/15+'px"/>'
     }
     return path
   }
+  
 
   //Creates svg node and parent connection paths for each node in the tree
   drawHTMLnodes(tree, parent){
@@ -48,10 +49,10 @@ class NodeGraphs{
       for(var i in tree.children){
         html += this.drawHTMLnodes(tree.children[i], tree);
       }
-      return html + this.drawSVGnode(tree.x, tree.y, tree.a, tree.b, parent);
+      return html + this.drawSVGnode(tree, parent);
     }else{
       console.log();
-      return this.drawSVGnode(tree.x, tree.y, tree.a, tree.b, parent);
+      return this.drawSVGnode(tree, parent);
     }
   }
 

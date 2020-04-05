@@ -1,0 +1,13 @@
+#switch{
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  --running: 0.5;
+  backdrop-filter: blur(calc(50px - 50px * var(--running)));
+  --webkit-backdrop-filter: blur(calc(50px - 50px * var(--running)));
+  opacity: calc(1 - var(--running));
+  transition: 1s cubic-bezier(0.3642, 0, 0.6358, 1);
+  background: rgb(255, 33, 33);
+}
