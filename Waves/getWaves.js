@@ -63,7 +63,7 @@ window.addEventListener('load', ()=> {
       audio.play();
       onswitch.style.setProperty('--running', '1');
     }else{
-      audio.stop();
+      audio.pause();
     onswitch.style.setProperty('--running', '0');
   }
   })
