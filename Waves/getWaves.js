@@ -73,6 +73,7 @@ connectAudio = function(audio_in){
   window.AudioContext = window.AudioContext||window.webkitAudioContext;
   ctrlpnl = new AudioContext();
   var audioIn = ctrlpnl.createMediaElementSource(audio_in);
+  alert(audioIn);
   var biquadFilter = ctrlpnl.createBiquadFilter();
   biquadFilter.type = "lowpass";
   biquadFilter.frequency = 80;
