@@ -31,7 +31,7 @@ function init() {
 }
 
 function loadWaves(url) {
-  myAudio = document.querySelector('my-waves');
+  var myAudio = document.querySelector('my-waves');
   waves = ctrlpnl.createMediaElementSource(myAudio);
   waves.connect(ctrlpnl.destination)
 }
