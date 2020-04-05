@@ -36,6 +36,7 @@ function loadWaves(url) {
   request.open('GET', url, true);
   request.responseType = 'arraybuffer';
   // Decode asynchronously
+  alert('test: '+url)
   request.onload = function() {
     alert('test onload: '+request.response)
 
