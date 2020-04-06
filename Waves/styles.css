@@ -11,3 +11,14 @@
   transition: 1s cubic-bezier(0.3642, 0, 0.6358, 1);
   background: rgb(255, 33, 33);
 }
+#log{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(50%, 50%);
+  --size: 50px;
+  width: var(--size);
+  height: var(--size);
+  border-radius: var(--size);
+  background: green;
+}
