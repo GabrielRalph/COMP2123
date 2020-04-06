@@ -57,10 +57,10 @@ window.addEventListener('load', ()=> {
   var onswitch = document.getElementById('switch');
   var audioInput = document.getElementById('audio-input');
   onswitch.style.setProperty('--running', '0')
-  connectAudio(audioInput)
   onswitch.addEventListener('click', ()=>{
     if(onswitch.style.getPropertyValue('--running') === "0"){
       audioInput.play();
+      connectAudio(audioInput)
       onswitch.style.setProperty('--running', '1');
     }else{
       audioInput.pause();
