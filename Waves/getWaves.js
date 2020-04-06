@@ -55,14 +55,15 @@
 const audio = new Audio();
 audio.src = 'http://192.168.0.233:8000/;?type=http&amp;nocache=1';
 audio.crossOrigin = 'anonymous';
+
 window.addEventListener('load', ()=> {
   var onswitch = document.getElementById('switch');
   // var audioInput = document.getElementById('audio-input');
   onswitch.style.setProperty('--running', '0.8')
   onswitch.addEventListener('click', ()=>{
     if(onswitch.style.getPropertyValue('--running') === "0.8"){
-      connectAudio();
       onswitch.style.setProperty('--running', '1');
+      connectAudio();
     }else if(onswitch.style.getPropertyValue('--running') === "0"){
       audio.play();
       onswitch.style.setProperty('--running', '1');
@@ -76,18 +77,16 @@ var dataArray;
 
 connectAudio = function(){
   try{
-
     document.body.appendChild(audio);
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const stream_dest = ctx.createMediaStreamDestination();
+    const stream_dest = ctx.destination;
     const source = ctx.createMediaElementSource(audio);
     var biquadFilter = ctx.createBiquadFilter();
     biquadFilter.type = "lowpass";
     biquadFilter.frequency = 80;
     source.connect(biquadFilter);
     biquadFilter.connect(stream_dest);
-
-    const stream = stream_dest.stream;
+    biquadFilter.connect(stream_dest);
     audio.load();
     audio.play();
     // window.AudioContext = window.AudioContext||window.webkitAudioContext;
