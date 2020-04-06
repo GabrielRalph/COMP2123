@@ -60,7 +60,7 @@ window.addEventListener('load', ()=> {
   onswitch.addEventListener('click', ()=>{
     if(onswitch.style.getPropertyValue('--running') === "0"){
       audioInput.play();
-      connectAudio(audioInput)
+      connectAudio(audioInput);
       onswitch.style.setProperty('--running', '1');
     }else{
       audioInput.pause();
@@ -70,13 +70,17 @@ window.addEventListener('load', ()=> {
 })
 
 connectAudio = function(audio_in){
-  window.AudioContext = window.AudioContext||window.webkitAudioContext;
-  ctrlpnl = new AudioContext();
-  var audioIn = ctrlpnl.createMediaElementSource(audio_in);
-  alert(audioIn);
-  var biquadFilter = ctrlpnl.createBiquadFilter();
-  biquadFilter.type = "lowpass";
-  biquadFilter.frequency = 80;
-  audioIn.connect(biquadFilter);
-  biquadFilter.connect(ctrlpnl.destination);
+  try{
+    window.AudioContext = window.AudioContext||window.webkitAudioContext;
+    ctrlpnl = new AudioContext();
+    var audioIn = ctrlpnl.createMediaElementSource(audio_in);
+    alert(audioIn);
+    var biquadFilter = ctrlpnl.createBiquadFilter();
+    biquadFilter.type = "lowpass";
+    biquadFilter.frequency = 80;
+    audioIn.connect(biquadFilter);
+    biquadFilter.connect(ctrlpnl.destination);
+  }catch(err){
+    alert(err)
+  }
 }
