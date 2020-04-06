@@ -52,30 +52,31 @@
 // }
 //
 // // wire up buttons to stop and play audio
-
+const audio = new Audio();
+audio.src = 'http://192.168.0.233:8000/;?type=http&amp;nocache=1';
+audio.crossOrigin = 'anonymous';
 window.addEventListener('load', ()=> {
   var onswitch = document.getElementById('switch');
   // var audioInput = document.getElementById('audio-input');
-  onswitch.style.setProperty('--running', '0')
+  onswitch.style.setProperty('--running', '0.8')
   onswitch.addEventListener('click', ()=>{
-    if(onswitch.style.getPropertyValue('--running') === "0"){
-      // audioInput.play();
+    if(onswitch.style.getPropertyValue('--running') === "0.8"){
       connectAudio();
       onswitch.style.setProperty('--running', '1');
+    }else if(onswitch.style.getPropertyValue('--running') === "0"){
+      audio.play();
+      onswitch.style.setProperty('--running', '1');
     }else{
-      // audioInput.pause();
-    onswitch.style.setProperty('--running', '0');
-  }
+      audio.pause();
+      onswitch.style.setProperty('--running', '0');
+    }
   })
 })
 var dataArray;
 
 connectAudio = function(){
   try{
-    const audio = new Audio();
-    audio.src = 'http://192.168.0.233:8000/;?type=http&amp;nocache=1';
-    audio.crossOrigin = 'anonymous';
-    audio.controls = true;
+
     document.body.appendChild(audio);
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
     const stream_dest = ctx.createMediaStreamDestination();
