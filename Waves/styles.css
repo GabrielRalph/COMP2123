@@ -9,7 +9,7 @@
   --webkit-backdrop-filter: blur(calc(50px - 50px * var(--running)));
   opacity: calc(1 - var(--running));
   transition: 1s cubic-bezier(0.3642, 0, 0.6358, 1);
-  background: rgb(255, 33, 33);
+  background: rgb(255, 123, 33);
 }
 #log{
   position: fixed;
