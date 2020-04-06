@@ -54,7 +54,7 @@
 //
 // // wire up buttons to stop and play audio
 const audio = new Audio();
-audio.src = 'http://192.168.0.233:8000/;?type=http&amp;nocache=1';
+audio.src = 'http://3.17.56.140:8000/;?type=http&nocache=1';
 audio.crossOrigin = 'anonymous';
 
 window.addEventListener('load', ()=> {
@@ -86,9 +86,9 @@ connectAudio = function(){
     var biquadFilter = ctx.createBiquadFilter();
     biquadFilter.type = "lowpass";
     biquadFilter.frequency = 80;
-    source.connect(biquadFilter);
-    biquadFilter.connect(stream_dest);
-    biquadFilter.connect(stream_dest);
+    source.connect(stream_dest);
+    // biquadFilter.connect(stream_dest);
+    // biquadFilter.connect(stream_dest);
     audio.load();
     audio.play();
     // window.AudioContext = window.AudioContext||window.webkitAudioContext;
