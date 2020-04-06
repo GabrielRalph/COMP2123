@@ -15,10 +15,10 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(50%, 50%);
+  transform: translate(-50%, -50%);
   --size: 50px;
   width: var(--size);
   height: var(--size);
   border-radius: var(--size);
-  background: green;
+  background: #00b7fd;
 }

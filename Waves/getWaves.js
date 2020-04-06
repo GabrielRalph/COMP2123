@@ -75,7 +75,7 @@ window.addEventListener('load', ()=> {
   })
 })
 var dataArray;
-
+var lastMax = 0;
 connectAudio = function(){
   try{
     document.body.appendChild(audio);
@@ -84,39 +84,54 @@ connectAudio = function(){
     const stream_dest = ctx.destination;
     const source = ctx.createMediaElementSource(audio);
     var biquadFilter = ctx.createBiquadFilter();
+    var analyser = ctx.createAnalyser();
     biquadFilter.type = "lowpass";
     biquadFilter.frequency = 80;
     source.connect(stream_dest);
-    // biquadFilter.connect(stream_dest);
-    // biquadFilter.connect(stream_dest);
+    source.connect(biquadFilter);
+    biquadFilter.connect(analyser);
+    analyser.fftSize = 2048;
+    var bufferLength = analyser.frequencyBinCount;
+    dataArray = new Uint8Array(bufferLength);
+
     audio.load();
     audio.play();
+    myBall = new Ball();
+    function renderFrame(){
+      requestAnimationFrame(renderFrame);
+      myBall.updatePos();
+      analyser.getByteTimeDomainData(dataArray);
+      var sum = 0;
+      var max = 0;
+      for( var i in dataArray){
+        var newV = Math.pow(dataArray[i] - 128, 2);
+        max = newV>max?newV:max;
+        sum += newV;
+      }
+      sum = Math.round(Math.sqrt(sum/bufferLength));
+      max = Math.round(Math.sqrt(max));
+      // myBall.size = sum;
+      // myBall.updateElement();
+      if((max-lastMax)*sum > 100){
+        myBall.yVel = 10;
+      }
+      myBall.updatePos();
+      document.getElementById('log').style.setProperty('--size', sum*10 + 'px')
+      lastMax = max;
+    }
+    renderFrame();
     // window.AudioContext = window.AudioContext||window.webkitAudioContext;
     // ctrlpnl = new AudioContext();
     // var audioIn = ctrlpnl.createMediaStreamSource(audio_in);
     // var analyser = ctrlpnl.createAnalyser();
     // audioIn.connect(biquadFilter);
     // biquadFilter.connect(analyser)
-    //
-    // analyser.fftSize = 2048;
-    // var bufferLength = analyser.frequencyBinCount;
-    // dataArray = new Uint8Array(bufferLength);
-    //
+
+
     // var canvas = document.getElementById("canvas");
     // canvas.width = window.innerWidth;
     // canvas.height = window.innerHeight;
-    // var ctx = canvas.getContext("2d");
-    //
-    //
-    // analyser.connect(ctrlpnl.destination);
-    //
-    // analyser.fftSize = 256;
-    //
-    // var bufferLength = analyser.frequencyBinCount;
-    // console.log(bufferLength);
-    //
-    // var dataArray = new Uint8Array(bufferLength);
-    //
+    // var cctx = canvas.getContext("2d");
     // var WIDTH = canvas.width;
     // var HEIGHT = canvas.height;
     //
@@ -129,10 +144,10 @@ connectAudio = function(){
     //
     //   x = 0;
     //
-    //   analyser.getByteFrequencyData(dataArray);
+    //   analyser.getByteTimeDomainData(dataArray);
     //
-    //   ctx.fillStyle = "#000";
-    //   ctx.fillRect(0, 0, WIDTH, HEIGHT);
+    //   cctx.fillStyle = "#000";
+    //   cctx.fillRect(0, 0, WIDTH, HEIGHT);
     //
     //   for (var i = 0; i < bufferLength; i++) {
     //     barHeight = dataArray[i];
@@ -141,8 +156,8 @@ connectAudio = function(){
     //     var g = 250 * (i/bufferLength);
     //     var b = 50;
     //
-    //     ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-    //     ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
+    //     cctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+    //     cctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
     //
     //     x += barWidth + 1;
     //   }
