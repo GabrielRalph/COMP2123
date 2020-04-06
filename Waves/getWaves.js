@@ -1,3 +1,4 @@
+// var AudioContext = requi?re('standardized-audio-context');
 // var ctrlpnl;
 // var waves;
 //
@@ -79,6 +80,7 @@ connectAudio = function(){
   try{
     document.body.appendChild(audio);
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
     const stream_dest = ctx.destination;
     const source = ctx.createMediaElementSource(audio);
     var biquadFilter = ctx.createBiquadFilter();
