@@ -26,17 +26,17 @@
           children: [node1, node2, ...] or [] if leaf<br />
         }
       </div>
-<pre class = "function">def treeToJson(node):
-  if node.is_external():
-    return '{{"a": {0}, "b": {1}, "children": []}}'.format(node.key, node.subtree_value) 
-
-  else:
-    print_string = '{{"a": {0}, "b": {1}, "children": ['.format(node.key, node.subtree_value) 
-
-    for child_node in node.children:
-      print_string += treeToJson(child_node) + ','
-    print_string = print_string[:-1]
-  return print_string + "]}"</pre>
+<pre class = "function">def treeToJson(self) -> str:
+  def json(node: Node) -> str:
+      if len(node.children) == 0:
+          return '{{"a": "{0}", "b": "{1}", "children": []}}'.format(node.colour.NAME, node.propagated_colour.NAME)
+      else:
+          print_string = '{{"a": "{0}", "b": "{1}", "children": ['.format(node.colour.NAME, node.propagated_colour.NAME)
+          for child_node in node.children:
+              print_string += json(child_node) + ','
+          print_string = print_string[:-1]
+          return print_string + "]}"
+  return json(self.root)</pre>
     </div>
     <div id = "modeB">
     </div>
